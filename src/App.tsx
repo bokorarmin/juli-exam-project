@@ -3,7 +3,8 @@ import type { FC, PropsWithChildren } from 'react';
 import { createBrowserRouter } from 'react-router';
 import { RouterProvider } from 'react-router-dom';
 
-import { Landing } from './components/Landing.tsx';
+import { Explore } from './pages/Explore/Explore.tsx';
+import { Landing } from './pages/Landing/Landing.tsx';
 import { lightTheme } from './theme/theme.ts';
 
 const AppThemeProvider: FC<PropsWithChildren> = ({ children }) => (
@@ -11,6 +12,10 @@ const AppThemeProvider: FC<PropsWithChildren> = ({ children }) => (
 );
 
 const router = createBrowserRouter([
+  {
+    path: '/explore',
+    element: <Explore />,
+  },
   {
     path: '*',
     element: <Landing />,
