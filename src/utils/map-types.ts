@@ -1,33 +1,37 @@
-// Define allowed tile layer names
-type TileLayerName = 'LIGHT' | 'DARK' | 'COMMON';
+export const TileLayer = {
+  LIGHT: 'LIGHT',
+  DARK: 'DARK',
+  COMMON: 'COMMON',
+};
+export type TileLayerType = (typeof TileLayer)[keyof typeof TileLayer];
 
-interface MapConfig {
+export interface MapConfig {
   url: string;
   attribution: string;
 }
 
-interface TileLayer {
-  name: TileLayerName;
+export interface TileLayerItem {
+  name: TileLayerType;
   map: MapConfig;
 }
 
-const tileLayers: TileLayer[] = [
+export const tileLayers: TileLayerItem[] = [
   {
-    name: 'LIGHT',
+    name: TileLayer.LIGHT,
     map: {
       url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
       attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
     },
   },
   {
-    name: 'DARK',
+    name: TileLayer.DARK,
     map: {
       url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
       attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
     },
   },
   {
-    name: 'COMMON',
+    name: TileLayer.COMMON,
     map: {
       url: 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
       attribution:
