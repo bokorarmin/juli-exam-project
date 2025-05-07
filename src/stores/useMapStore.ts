@@ -1,0 +1,13 @@
+import { create } from 'zustand';
+
+import { type TileLayerType, TileLayer } from '../utils/map-types.ts';
+
+interface MapStore {
+  currentMap: TileLayerType;
+  setMap: (name: TileLayerType) => void;
+}
+
+export const useMapStore = create<MapStore>((set) => ({
+  currentMap: TileLayer.LIGHT,
+  setMap: (name: TileLayerType) => set({ currentMap: name }),
+}));
