@@ -1,60 +1,54 @@
-import React from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { Button, ButtonGroup } from '@mui/material';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+
 import 'leaflet/dist/leaflet.css';
+import { useMapStore } from '../stores/useMapStore.ts';
+import { tileLayers } from '../utils/map-types';
 
-const position: [number, number] = [47.4979, 19.0702]; // Budapest
+const position: [number, number] = [47.4979, 19.0702] as const;
 
-const tileLayers = [
-  {
-    name: 'CartoDB Positron',
-    url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-    attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
-  },
-  {
-    name: 'CartoDB Dark Matter',
-    url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-    attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
-  },
-  {
-    name: 'OpenStreetMap HOT',
-    url: 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
-    attribution:
-      '&copy; OpenStreetMap contributors, Tiles style by Humanitarian OpenStreetMap Team',
-  },
-];
+export const Landing = () => {
+  const { currentMap, setMap } = useMapStore();
 
-const Landing: React.FC = () => {
+  const currentLayer = tileLayers.find((layer) => layer.name === currentMap);
+
   return (
     <div
       style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
     >
-      {tileLayers.map((layer, index) => (
-        <div
-          key={index}
-          style={{ marginBottom: '40px', width: '80%', maxWidth: '900px' }}
-        >
-          <h3 style={{ textAlign: 'center', margin: '10px 0' }}>
-            {layer.name}
-          </h3>
-          <MapContainer
-            center={position}
-            zoom={14}
-            style={{ height: '500px', width: '50vw' }}
+      <h2>Map Layer Selector</h2>
+      <ButtonGroup variant="contained" style={{ marginBottom: '20px' }}>
+        {tileLayers.map((layer) => (
+          <Button
+            key={layer.name}
+            onClick={() => setMap(layer.name)}
+            color={layer.name === currentMap ? 'primary' : 'inherit'}
           >
-            <TileLayer url={layer.url} attribution={layer.attribution} />
-            <Marker position={position}>
-              <Popup>
-                <video width="250" controls>
-                  <source src="your-video.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              </Popup>
-            </Marker>
-          </MapContainer>
-        </div>
-      ))}
+            {layer.name}
+          </Button>
+        ))}
+      </ButtonGroup>
+
+      <div style={{ width: '80%', maxWidth: '900px' }}>
+        <MapContainer
+          center={position}
+          zoom={14}
+          style={{ height: '500px', width: '50vw' }}
+        >
+          <TileLayer
+            url={currentLayer?.map.url ?? ''}
+            attribution={currentLayer?.map.attribution ?? ''}
+          />
+          <Marker position={position}>
+            <Popup>
+              <video width="250" controls>
+                <source src="/videos/video1.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </Popup>
+          </Marker>
+        </MapContainer>
+      </div>
     </div>
   );
 };
-
-export default Landing;
