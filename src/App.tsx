@@ -1,60 +1,52 @@
-import React from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
+import { GlobalStyles, ThemeProvider } from '@mui/material';
+import type { FC, PropsWithChildren } from 'react';
+import { createBrowserRouter } from 'react-router';
+import { RouterProvider } from 'react-router-dom';
 
-const position: [number, number] = [47.4979, 19.0702]; // Budapest
+import Landing from './components/Landing.tsx';
+import { lightTheme } from './theme/theme.ts';
 
-const tileLayers = [
-  {
-    name: 'CartoDB Positron',
-    url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-    attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
-  },
-  {
-    name: 'CartoDB Dark Matter',
-    url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-    attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
-  },
-  {
-    name: 'OpenStreetMap HOT',
-    url: 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
-    attribution:
-      '&copy; OpenStreetMap contributors, Tiles style by Humanitarian OpenStreetMap Team',
-  },
-];
+const AppThemeProvider: FC<PropsWithChildren> = ({ children }) => (
+  <ThemeProvider theme={lightTheme} children={children} />
+);
 
-const App: React.FC = () => {
+const router = createBrowserRouter([
+  {
+    path: '*',
+    element: <Landing />,
+  },
+]);
+
+function App() {
   return (
-    <div
-      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
-    >
-      {tileLayers.map((layer, index) => (
-        <div
-          key={index}
-          style={{ marginBottom: '40px', width: '80%', maxWidth: '900px' }}
-        >
-          <h3 style={{ textAlign: 'center', margin: '10px 0' }}>
-            {layer.name}
-          </h3>
-          <MapContainer
-            center={position}
-            zoom={14}
-            style={{ height: '500px', width: '50vw' }}
-          >
-            <TileLayer url={layer.url} attribution={layer.attribution} />
-            <Marker position={position}>
-              <Popup>
-                <video width="250" controls>
-                  <source src="your-video.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              </Popup>
-            </Marker>
-          </MapContainer>
-        </div>
-      ))}
-    </div>
+    <>
+      <AppThemeProvider>
+        <GlobalStyles
+          styles={(theme) => ({
+            html: {
+              WebkitFontSmoothing: 'auto',
+              backgroundColor: theme.palette.background.default,
+            },
+            body: {
+              margin: 0,
+              fontFamily: theme.typography.fontFamily,
+              backgroundColor: theme.palette.background.default,
+            },
+            [`& input:-webkit-autofill,
+              input:-internal-autofill-selected,
+              input:-webkit-autofill:hover,
+              input:-webkit-autofill:focus,
+              input:-webkit-autofill:active`]: {
+              transition: 'background-color 1000s ease-in-out 0s',
+              boxShadow: 'inherit !important',
+              textFillColor: `${theme.palette.text.primary}`,
+            },
+          })}
+        />
+        <RouterProvider router={router} />
+      </AppThemeProvider>
+    </>
   );
-};
+}
 
 export default App;

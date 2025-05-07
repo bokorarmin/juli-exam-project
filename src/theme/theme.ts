@@ -1,4 +1,4 @@
-import { createTheme, ThemeOptions } from '@mui/material';
+import { createTheme, type ThemeOptions } from '@mui/material';
 
 import { lightPalette } from './lightPalette.ts';
 import { fontFamily, getTypography } from './typography.ts';
