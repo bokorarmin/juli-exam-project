@@ -1,11 +1,14 @@
 .leaflet-popup-content {
+  background-color: transparent !important;
   padding: 0 !important;
   margin: 0 !important;
-  background: transparent !important;
+  /*background: transparent !important;*/
 }
 .leaflet-popup-content-wrapper {
+  background-color: transparent !important;
   border: none !important;
 }
 .leaflet-popup-tip {
+  background-color: transparent !important;
   display: none !important;
 }

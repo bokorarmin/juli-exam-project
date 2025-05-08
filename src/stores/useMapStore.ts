@@ -8,6 +8,6 @@ interface MapStore {
 }
 
 export const useMapStore = create<MapStore>((set) => ({
-  currentMap: TileLayer.LIGHT,
+  currentMap: TileLayer.SATELLITE,
   setMap: (name: TileLayerType) => set({ currentMap: name }),
 }));

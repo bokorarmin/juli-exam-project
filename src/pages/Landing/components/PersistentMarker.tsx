@@ -53,7 +53,7 @@ export const PersistentMarker = ({
         className="custom-popup"
       >
         <video width="350" autoPlay loop playsInline>
-          <source src="/videos/video2.mp4" type="video/mp4" />
+          <source src="/videos/video2.webm" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </Popup>

@@ -20,11 +20,13 @@ export const Landing = () => {
 
   const currentLayer = tileLayers.find((layer) => layer.name === currentMap);
 
+  console.log(openPopups);
+  console.log(markerPositions.length);
   return (
     <Box width={'100vw'} height={'100vh'} position="relative">
       <MapContainer
         center={position}
-        zoom={14}
+        zoom={15.4}
         style={{ height: '100%', width: '100%' }}
       >
         <TileLayer
@@ -43,7 +45,7 @@ export const Landing = () => {
           ))}
         </PopupController>
 
-        {openPopups.size === tileLayers.length + 1 && (
+        {openPopups.size === markerPositions.length && (
           <CloseAllPopups onClose={() => setOpenPopups(new Set())} />
         )}
       </MapContainer>
