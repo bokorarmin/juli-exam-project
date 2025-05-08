@@ -58,12 +58,4 @@ export const tileLayers: TileLayerItem[] = [
         'Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics, USDA FSA, USGS, AeroGRID, IGN, and the GIS User Community',
     },
   },
-  {
-    name: TileLayer.HYBRID,
-    map: {
-      // Esri World Imagery with labels (two-layer setup needed in React Leaflet)
-      url: 'https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',
-      attribution: 'Labels &copy; Esri',
-    },
-  },
 ];
