@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import { type TileLayerType, TileLayer } from '../utils/map-types.ts';
+import { type TileLayerType, TileLayer } from '../map-config/map-types.ts';
 
 interface MapStore {
   currentMap: TileLayerType;

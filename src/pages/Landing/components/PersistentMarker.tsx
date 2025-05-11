@@ -1,15 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
 import { Marker, Popup } from 'react-leaflet';
 
+interface PersistentMarkerProps {
+  position: [number, number];
+  index: number;
+  registerOpenPopup: (index: number) => void;
+  video: string | undefined;
+}
+
 export const PersistentMarker = ({
   position,
   index,
   registerOpenPopup,
-}: {
-  position: [number, number];
-  index: number;
-  registerOpenPopup: (index: number) => void;
-}) => {
+}: PersistentMarkerProps) => {
   const markerRef = useRef(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 

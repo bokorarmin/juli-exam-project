@@ -2,11 +2,11 @@ import { Box, Button, ButtonGroup, Typography } from '@mui/material';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 
 import 'leaflet/dist/leaflet.css';
-import '../../utils/leaflet.config.ts';
+import '../../map-config/leaflet.config.ts';
 
+import { markers, startingMapPosition } from '../../map-config/constants.ts';
+import { tileLayers, type TileLayerType } from '../../map-config/map-types.ts';
 import { useMapStore } from '../../stores/useMapStore.ts';
-import { markerPositions, startingMapPosition } from '../../utils/constants.ts';
-import { tileLayers, type TileLayerType } from '../../utils/map-types.ts';
 
 export const Explore = () => {
   const { currentMap, setMap } = useMapStore();
@@ -69,11 +69,11 @@ export const Explore = () => {
           url={currentLayer?.map.url ?? ''}
           attribution={currentLayer?.map.attribution ?? ''}
         />
-        {markerPositions.map((pos, index) => (
-          <Marker position={pos} key={index}>
+        {markers.map((marker, index) => (
+          <Marker position={marker.position} key={index}>
             <Popup>
               <video width="230" controls>
-                <source src="/videos/video2.webm" type="video/webm" />
+                <source src={marker.video} type="video/webm" />
                 Your browser does not support the video tag.
               </video>
             </Popup>

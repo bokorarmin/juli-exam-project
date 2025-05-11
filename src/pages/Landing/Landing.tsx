@@ -1,13 +1,13 @@
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
-import { Box, IconButton } from '@mui/material';
+import { Box, IconButton, useMediaQuery, useTheme } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 
 import 'leaflet/dist/leaflet.css';
-import '../../utils/leaflet.config.ts';
+import '../../map-config/leaflet.config.ts';
+import { markers } from '../../map-config/constants.ts';
+import { tileLayers } from '../../map-config/map-types.ts';
 import { useMapStore } from '../../stores/useMapStore.ts';
-import { markerPositions } from '../../utils/constants.ts';
-import { tileLayers } from '../../utils/map-types.ts';
 
 import { CloseAllPopups } from './components/CloseAllPopups.tsx';
 import { PersistentMarker } from './components/PersistentMarker.tsx';
@@ -16,6 +16,8 @@ import { PopupController } from './components/PopupController.tsx';
 const position: [number, number] = [47.4979, 19.0702] as const;
 
 export const Landing = () => {
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
   const { currentMap } = useMapStore();
   const [openPopups, setOpenPopups] = useState<Set<number>>(new Set());
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -56,22 +58,30 @@ export const Landing = () => {
         />
 
         <PopupController openPopups={openPopups} setOpenPopups={setOpenPopups}>
-          {markerPositions.map((pos, index) => (
+          {markers.map((marker, index) => (
             <PersistentMarker
               key={index}
-              position={pos}
+              position={marker.position}
               index={index}
-              registerOpenPopup={() => {}}
+              video={marker.video}
+              registerOpenPopup={(index: number) => {
+                setOpenPopups((prev) => {
+                  const newSet = new Set(prev);
+                  newSet.add(index);
+
+                  return newSet;
+                });
+              }}
             />
           ))}
         </PopupController>
 
-        {openPopups.size === markerPositions.length && (
+        {openPopups.size === markers.length && (
           <CloseAllPopups onClose={() => setOpenPopups(new Set())} />
         )}
       </MapContainer>
 
-      {!isFullscreen && (
+      {!isFullscreen && isDesktop && (
         <IconButton
           onClick={handleFullscreenToggle}
           sx={{
@@ -82,12 +92,6 @@ export const Landing = () => {
             backgroundColor: 'white',
             '&:hover': { backgroundColor: '#f0f0f0' },
             boxShadow: 3,
-            display: {
-              xs: 'none',
-              sm: 'none',
-              md: 'none',
-              lg: 'block',
-            },
           }}
         >
           <FullscreenIcon />
