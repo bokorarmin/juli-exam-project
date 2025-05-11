@@ -73,7 +73,7 @@ export const Explore = () => {
           <Marker position={pos} key={index}>
             <Popup>
               <video width="230" controls>
-                <source src="/videos/video2.webm" type="video/mp4" />
+                <source src="/videos/video2.webm" type="video/webm" />
                 Your browser does not support the video tag.
               </video>
             </Popup>

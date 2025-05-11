@@ -14,9 +14,7 @@ export const PopupController = ({
 }: PopupControllerProps) => {
   const registerOpenPopup = useCallback(
     (index: number) => {
-      console.log('in first');
       if (setOpenPopups) {
-        console.log('in func');
         setOpenPopups((prev) => {
           const newSet = new Set(prev);
           newSet.add(index);
