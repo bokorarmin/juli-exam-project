@@ -5,7 +5,8 @@ import { RouterProvider } from 'react-router-dom';
 
 import { Explore } from './pages/Explore/Explore.tsx';
 import { Landing } from './pages/Landing/Landing.tsx';
-import { lightTheme } from './theme/theme.ts';
+import { routePaths } from './router/paths.ts';
+import { lightTheme } from './theme/mui/theme.ts';
 
 const AppThemeProvider: FC<PropsWithChildren> = ({ children }) => (
   <ThemeProvider theme={lightTheme} children={children} />
@@ -13,11 +14,15 @@ const AppThemeProvider: FC<PropsWithChildren> = ({ children }) => (
 
 const router = createBrowserRouter([
   {
-    path: '/explore',
+    path: routePaths.home,
+    element: <Landing />,
+  },
+  {
+    path: routePaths.explore,
     element: <Explore />,
   },
   {
-    path: '*',
+    path: '*', // fallback to main page
     element: <Landing />,
   },
 ]);
@@ -37,7 +42,8 @@ function App() {
               fontFamily: theme.typography.fontFamily,
               backgroundColor: theme.palette.background.default,
             },
-            [`& input:-webkit-autofill,
+            //   common mui style config
+            [`& input:-webkit-autofill, 
               input:-internal-autofill-selected,
               input:-webkit-autofill:hover,
               input:-webkit-autofill:focus,

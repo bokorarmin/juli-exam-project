@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 import { useMap } from 'react-leaflet';
 import { useNavigate } from 'react-router';
 
-import { routePaths } from '../../../utils/route-paths.ts';
+import { routePaths } from '../../../router/paths.ts';
 
 interface CloseAllPopupsProps {
   onClose: () => void;
