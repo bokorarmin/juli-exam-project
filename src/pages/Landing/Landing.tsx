@@ -82,6 +82,12 @@ export const Landing = () => {
             backgroundColor: 'white',
             '&:hover': { backgroundColor: '#f0f0f0' },
             boxShadow: 3,
+            display: {
+              xs: 'none',
+              sm: 'none',
+              md: 'none',
+              lg: 'block',
+            },
           }}
         >
           <FullscreenIcon />
