@@ -64,7 +64,7 @@ This will start the development server at http://localhost:3000 (configured port
 
 ## Building for Production
 ```bash
-    npm run dev
+    npm run build
 ```
 The build output will be in the `dist` directory.
 
