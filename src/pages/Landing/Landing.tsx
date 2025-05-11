@@ -52,6 +52,7 @@ export const Landing = () => {
         <TileLayer
           url={currentLayer?.map.url ?? ''}
           attribution={currentLayer?.map.attribution ?? ''}
+          className="nighttime-satellite"
         />
 
         <PopupController openPopups={openPopups} setOpenPopups={setOpenPopups}>
