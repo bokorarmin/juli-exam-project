@@ -1,3 +1,5 @@
+import { Marker as LeafletMarker } from 'leaflet';
+
 export const startingMapPosition: [number, number] = [
   47.4979, 19.0702,
 ] as const;
@@ -8,3 +10,7 @@ export const markers: { position: [number, number]; video: string }[] = [
   { position: [47.4955, 19.0735], video: '/videos/video2.webm' },
   { position: [47.4965, 19.069], video: '/videos/video2.webm' },
 ] as const;
+
+export interface ExtendedMarker extends LeafletMarker {
+  _icon?: HTMLElement;
+}

@@ -45,10 +45,16 @@ export const Landing = () => {
   };
 
   return (
-    <Box id="map-wrapper" width="100vw" height="100vh" position="relative">
+    <Box
+      id="map-wrapper"
+      width="100vw"
+      height="100vh"
+      position="relative"
+      overflow="hidden"
+    >
       <MapContainer
         center={position}
-        zoom={15.4}
+        zoom={16}
         style={{ height: '110vh', width: '100vw' }}
       >
         <TileLayer

@@ -1,5 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { Marker, Popup } from 'react-leaflet';
+
+import type { ExtendedMarker } from '../../../map-config/constants.ts';
 
 interface PersistentMarkerProps {
   position: [number, number];
@@ -13,31 +15,28 @@ export const PersistentMarker = ({
   index,
   registerOpenPopup,
 }: PersistentMarkerProps) => {
-  const markerRef = useRef(null);
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const markerRef = useRef<ExtendedMarker | null>(null);
 
   useEffect(() => {
-    if (markerRef.current && isPopupOpen) {
-      const marker = markerRef.current;
+    const marker = markerRef.current;
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      marker.off('click');
-
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      marker.on('click', () => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        marker.openPopup();
+    if (marker) {
+      marker.on('popupopen', () => {
+        if (marker._icon) {
+          marker._icon.style.display = 'none';
+        }
       });
 
-      registerOpenPopup(index);
+      marker.on('popupclose', () => {
+        if (marker._icon) {
+          marker._icon.style.display = '';
+        }
+      });
     }
-  }, [isPopupOpen, index, registerOpenPopup]);
+  }, []);
 
   const handleMarkerClick = () => {
-    setIsPopupOpen(true);
+    registerOpenPopup(index);
   };
 
   return (
@@ -55,7 +54,7 @@ export const PersistentMarker = ({
         closeOnEscapeKey={false}
         className="custom-popup"
       >
-        <video width="230" autoPlay loop playsInline>
+        <video width="220" autoPlay loop playsInline>
           <source src="/videos/video2.webm" type="video/webm" />
           Your browser does not support the video tag.
         </video>
