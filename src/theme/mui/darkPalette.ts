@@ -15,8 +15,8 @@ export const darkPalette: PaletteOptions = {
     contrastText: '#ffffff',
   },
   background: {
-    default: '#000000', // Pure black background
-    paper: '#0a0a0a', // Slightly lighter for paper surfaces
+    default: '#ffffff', // Pure black background
+    paper: '#000000', // Slightly lighter for paper surfaces
   },
   success: {
     main: '#4caf50',
@@ -34,17 +34,17 @@ export const darkPalette: PaletteOptions = {
     main: '#ffa726',
     dark: '#f57c00',
     light: '#ffcc80',
-    contrastText: '#000000',
+    contrastText: '#ffffff',
   },
   info: {
     main: '#29b6f6',
     dark: '#0288d1',
     light: '#4fc3f7',
-    contrastText: '#000000',
+    contrastText: '#ffffff',
   },
   divider: '#1a1a1a', // Dark but visible on black
   text: {
-    primary: '#ffffff',
+    primary: '#000000',
     secondary: '#b0b0b0',
     disabled: 'rgba(255, 255, 255, 0.38)',
   },

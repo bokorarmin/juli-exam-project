@@ -23,6 +23,7 @@ export const Landing = () => {
   return (
     <Box
       sx={{
+        bgcolor: 'background.paper',
         width: '100vw',
         height: '100vh',
         display: 'flex',

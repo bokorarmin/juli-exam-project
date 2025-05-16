@@ -1,3 +1,9 @@
+import { Description } from './components/Description.tsx';
+
 export const Explanation = () => {
-  return <></>;
+  return (
+    <>
+      <Description />
+    </>
+  );
 };
