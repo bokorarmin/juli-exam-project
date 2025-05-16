@@ -3,13 +3,14 @@ import type { FC, PropsWithChildren } from 'react';
 import { createBrowserRouter } from 'react-router';
 import { RouterProvider } from 'react-router-dom';
 
+import { Explanation } from './pages/Explanation/Explanation.tsx';
 import { Explore } from './pages/Explore/Explore.tsx';
 import { Landing } from './pages/Landing/Landing.tsx';
 import { routePaths } from './router/paths.ts';
-import { lightTheme } from './theme/mui/theme.ts';
+import { darkTheme } from './theme/mui/theme.ts';
 
 const AppThemeProvider: FC<PropsWithChildren> = ({ children }) => (
-  <ThemeProvider theme={lightTheme} children={children} />
+  <ThemeProvider theme={darkTheme} children={children} />
 );
 
 const router = createBrowserRouter([
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: routePaths.explore,
     element: <Explore />,
+  },
+  {
+    path: routePaths.explanation,
+    element: <Explanation />,
   },
   {
     path: '*', // fallback to main page

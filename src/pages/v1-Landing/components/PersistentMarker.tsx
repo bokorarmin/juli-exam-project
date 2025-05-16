@@ -6,11 +6,15 @@ import type { ExtendedMarker } from '../../../map-config/constants.ts';
 interface PersistentMarkerProps {
   position: [number, number];
   index: number;
-  // registerOpenPopup: (index: number) => void;
+  registerOpenPopup: (index: number) => void;
   video: string | undefined;
 }
 
-export const PersistentMarker = ({ position }: PersistentMarkerProps) => {
+export const PersistentMarker = ({
+  position,
+  index,
+  registerOpenPopup,
+}: PersistentMarkerProps) => {
   const markerRef = useRef<ExtendedMarker | null>(null);
 
   useEffect(() => {
@@ -21,39 +25,31 @@ export const PersistentMarker = ({ position }: PersistentMarkerProps) => {
         if (marker._icon) {
           marker._icon.style.display = 'none';
         }
-
-        const popup = marker.getPopup();
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        const videoEl = popup.getElement()?.querySelector('video');
-        if (videoEl) {
-          videoEl.load(); // Reload video so it starts fresh
-          videoEl.play(); // Ensure playback
-        }
       });
 
       marker.on('popupclose', () => {
         if (marker._icon) {
           marker._icon.style.display = '';
         }
-
-        const popup = marker.getPopup();
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        const videoEl = popup.getElement()?.querySelector('video');
-        if (videoEl) {
-          videoEl.pause(); // Stop video when closed
-          videoEl.currentTime = 0; // Reset time to beginning
-        }
       });
     }
   }, []);
 
+  const handleMarkerClick = () => {
+    registerOpenPopup(index);
+  };
+
   return (
-    <Marker ref={markerRef} position={position}>
+    <Marker
+      ref={markerRef}
+      position={position}
+      eventHandlers={{
+        click: handleMarkerClick,
+      }}
+    >
       <Popup
         autoClose={false}
-        closeButton={true}
+        closeButton={false}
         closeOnClick={false}
         closeOnEscapeKey={false}
         className="custom-popup"
