@@ -25,7 +25,7 @@ export const Landing = () => {
       sx={{
         bgcolor: 'background.paper',
         width: '100vw',
-        height: 'calc(110vh - 40px)', // Hide bottom 40px of the map
+        height: '115vh',
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',

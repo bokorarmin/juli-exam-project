@@ -18,3 +18,28 @@
 .leaflet-tile-pane .nighttime-satellite {
   filter: brightness(0.45) contrast(1.05) saturate(0.4) sepia(0.1) hue-rotate(-20deg);
 }
+
+/*light hover on marker pin*/
+.custom-leaflet-pin {
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.custom-leaflet-pin:hover::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 24px;
+  border-radius: 50% / 100%;
+  background: radial-gradient(ellipse at center, rgba(255, 0, 0, 0.7), transparent 70%);
+  filter: blur(8px);
+  opacity: 1;
+  pointer-events: none;
+  z-index: -1;
+}
+
+
+
