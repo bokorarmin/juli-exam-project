@@ -4,11 +4,21 @@ export const startingMapPosition: [number, number] = [
   47.4979, 19.0702,
 ] as const;
 
-export const markers: { position: [number, number]; video: string }[] = [
-  { position: [47.4979, 19.0702], video: '/videos/video2.webm' },
-  { position: [47.4999, 19.0722], video: '/videos/video2.webm' },
-  { position: [47.4955, 19.0735], video: '/videos/video2.webm' },
-  { position: [47.4965, 19.069], video: '/videos/video2.webm' },
+export const markers: {
+  position: [number, number];
+  video: string;
+  streetName: string;
+}[] = [
+  {
+    position: [47.503, 19.0811],
+    video: '/videos/istvan_u_10.webm',
+    streetName: 'István utca 10',
+  },
+  {
+    position: [47.5051, 19.0825],
+    video: '/videos/istvan_u_28.webm',
+    streetName: 'István utca 28',
+  },
 ] as const;
 
 export interface ExtendedMarker extends LeafletMarker {

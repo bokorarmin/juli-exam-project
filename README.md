@@ -98,5 +98,5 @@ To compress videos to WebM format with VP9 codec (recommended for web):
 
 ### to keep audio
 ```bash
-    ffmpeg -i input_video.mp4 -c:v libvpx-vp9 -b:v 0 -crf 30 -c:a libopus -threads 4 output_video.webm
+    ffmpeg -i ./istvan_u_10.mp4 -c:v libvpx-vp9 -b:v 0 -crf 30 -c:a libopus -threads 4 istvan_u_10.webm
 ```

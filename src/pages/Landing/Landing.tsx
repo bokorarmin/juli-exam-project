@@ -55,6 +55,7 @@ export const Landing = () => {
                 position={marker.position}
                 index={index}
                 video={marker.video}
+                streetName={marker.streetName}
               />
             ))}
           </PopupController>

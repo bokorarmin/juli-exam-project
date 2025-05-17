@@ -1,3 +1,4 @@
+import { Box, Paper, Typography } from '@mui/material';
 import { useEffect, useRef } from 'react';
 import { Marker, Popup } from 'react-leaflet';
 
@@ -6,11 +7,15 @@ import type { ExtendedMarker } from '../../../map-config/constants.ts';
 interface PersistentMarkerProps {
   position: [number, number];
   index: number;
-  // registerOpenPopup: (index: number) => void;
   video: string | undefined;
+  streetName: string; // Added street name prop
 }
 
-export const PersistentMarker = ({ position }: PersistentMarkerProps) => {
+export const PersistentMarker = ({
+  position,
+  video,
+  streetName, // Receive street name
+}: PersistentMarkerProps) => {
   const markerRef = useRef<ExtendedMarker | null>(null);
 
   useEffect(() => {
@@ -58,10 +63,44 @@ export const PersistentMarker = ({ position }: PersistentMarkerProps) => {
         closeOnEscapeKey={false}
         className="custom-popup"
       >
-        <video width="220" autoPlay loop playsInline>
-          <source src="/videos/video2.webm" type="video/webm" />
-          Your browser does not support the video tag.
-        </video>
+        <Paper elevation={0} sx={{ width: 250, overflow: 'hidden' }}>
+          {/*<Box*/}
+          {/*  sx={{*/}
+          {/*    bgcolor: 'primary.main',*/}
+          {/*    color: 'primary.contrastText',*/}
+          {/*    p: 1,*/}
+          {/*    display: 'flex',*/}
+          {/*    alignItems: 'center',*/}
+          {/*    gap: 1,*/}
+          {/*  }}*/}
+          {/*>*/}
+          {/*  <LocationOnIcon fontSize="small" />*/}
+          {/*  <Typography variant="subtitle2" fontWeight="medium">*/}
+          {/*    {streetName}*/}
+          {/*  </Typography>*/}
+          {/*</Box>*/}
+          <Box>
+            <video
+              width={250}
+              autoPlay
+              loop
+              playsInline
+              style={{ display: 'block' }}
+            >
+              <source src={video} type="video/webm" />
+              Your browser does not support the video tag.
+            </video>
+          </Box>
+          <Box py={1} sx={{ bgcolor: 'background.paper', textAlign: 'center' }}>
+            <Typography
+              variant="caption"
+              color="text.secondary"
+              sx={{ fontSize: '1rem' }}
+            >
+              {streetName}
+            </Typography>
+          </Box>
+        </Paper>
       </Popup>
     </Marker>
   );
