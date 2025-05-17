@@ -1,4 +1,5 @@
 import { Box, Paper, Typography } from '@mui/material';
+import L from 'leaflet';
 import { useEffect, useRef } from 'react';
 import { Marker, Popup } from 'react-leaflet';
 
@@ -8,13 +9,20 @@ interface PersistentMarkerProps {
   position: [number, number];
   index: number;
   video: string | undefined;
-  streetName: string; // Added street name prop
+  streetName: string;
 }
+
+const customPinIcon = L.icon({
+  iconUrl: '/pin.png',
+  iconSize: [10, 45],
+  iconAnchor: [16, 32],
+  popupAnchor: [0, -32],
+});
 
 export const PersistentMarker = ({
   position,
   video,
-  streetName, // Receive street name
+  streetName,
 }: PersistentMarkerProps) => {
   const markerRef = useRef<ExtendedMarker | null>(null);
 
@@ -32,8 +40,8 @@ export const PersistentMarker = ({
         // @ts-expect-error
         const videoEl = popup.getElement()?.querySelector('video');
         if (videoEl) {
-          videoEl.load(); // Reload video so it starts fresh
-          videoEl.play(); // Ensure playback
+          videoEl.load();
+          videoEl.play();
         }
       });
 
@@ -47,15 +55,15 @@ export const PersistentMarker = ({
         // @ts-expect-error
         const videoEl = popup.getElement()?.querySelector('video');
         if (videoEl) {
-          videoEl.pause(); // Stop video when closed
-          videoEl.currentTime = 0; // Reset time to beginning
+          videoEl.pause();
+          videoEl.currentTime = 0;
         }
       });
     }
   }, []);
 
   return (
-    <Marker ref={markerRef} position={position}>
+    <Marker ref={markerRef} position={position} icon={customPinIcon}>
       <Popup
         autoClose={false}
         closeButton={true}
@@ -63,25 +71,10 @@ export const PersistentMarker = ({
         closeOnEscapeKey={false}
         className="custom-popup"
       >
-        <Paper elevation={0} sx={{ width: 250, overflow: 'hidden' }}>
-          {/*<Box*/}
-          {/*  sx={{*/}
-          {/*    bgcolor: 'primary.main',*/}
-          {/*    color: 'primary.contrastText',*/}
-          {/*    p: 1,*/}
-          {/*    display: 'flex',*/}
-          {/*    alignItems: 'center',*/}
-          {/*    gap: 1,*/}
-          {/*  }}*/}
-          {/*>*/}
-          {/*  <LocationOnIcon fontSize="small" />*/}
-          {/*  <Typography variant="subtitle2" fontWeight="medium">*/}
-          {/*    {streetName}*/}
-          {/*  </Typography>*/}
-          {/*</Box>*/}
+        <Paper elevation={0} sx={{ width: 270, overflow: 'hidden' }}>
           <Box>
             <video
-              width={250}
+              width={270}
               autoPlay
               loop
               playsInline

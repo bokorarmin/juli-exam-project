@@ -1,13 +1,19 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useMediaQuery } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 
 export const Description = () => {
+  const isDesktop = useMediaQuery((theme) => theme.breakpoints.up('md'));
+
   return (
     <Box>
-      <Box m={15}>
+      <Box mt={isDesktop ? 10 : 5}>
         <Grid container spacing={2}>
           <Grid size={{ xs: 12, md: 6 }}>
-            <Typography variant="h5" color={'textPrimary'}>
+            <Typography
+              variant="h5"
+              color={'textPrimary'}
+              fontWeight={'lighter'}
+            >
               Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque
               faucibus ex sapien vitae pellentesque sem placerat. In id cursus
               mi pretium tellus duis convallis. Tempus leo eu aenean sed diam
@@ -38,7 +44,7 @@ export const Description = () => {
             alignItems="center"
           >
             <video autoPlay loop muted playsInline style={{ width: '70%' }}>
-              <source src="/videos/video2.webm" type="video/webm" />
+              <source src="videos/istvan_u_10.webm" type="video/webm" />
             </video>
           </Grid>
         </Grid>

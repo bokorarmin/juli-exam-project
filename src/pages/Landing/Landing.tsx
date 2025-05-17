@@ -25,7 +25,8 @@ export const Landing = () => {
       sx={{
         bgcolor: 'background.paper',
         width: '100vw',
-        height: '100vh',
+        height: 'calc(110vh - 40px)', // Hide bottom 40px of the map
+        overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
       }}
@@ -39,7 +40,7 @@ export const Landing = () => {
       <Box sx={{ flex: 1 }}>
         <MapContainer
           center={startingMapPosition}
-          zoom={15}
+          zoom={16}
           style={{ height: '100%', width: '100vw' }}
         >
           <TileLayer
